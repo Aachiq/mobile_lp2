@@ -15,25 +15,10 @@ export default function TabLayout() {
         // tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: 'Home',
           tabBarIcon: () => <AntDesign name="home" size={24} color="blue" />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          href: null,
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color="blue" />,
-        }}
-      />
-      <Tabs.Screen
-        name="privacy"
-        options={{
-          title: 'Privacy',
-          tabBarIcon: () => <MaterialIcons name="privacy-tip" size={24} color="blue" />,
         }}
       />
 
@@ -42,6 +27,14 @@ export default function TabLayout() {
         options={{
           title: 'About',
           tabBarIcon: () => <Entypo name="info-with-circle" size={24} color="blue"/>,
+        }}
+      />
+
+       <Tabs.Screen
+        name="privacy"
+        options={{
+          title: 'Privacy',
+          tabBarIcon: () => <MaterialIcons name="privacy-tip" size={24} color="blue" />,
         }}
       />
     </Tabs>
