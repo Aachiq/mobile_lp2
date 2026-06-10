@@ -1,43 +1,37 @@
 import { FavoriteBook, FavoriteContext } from "@/types/context.types";
 import {
   createContext,
-  useContext,
   useState,
 } from "react";
 
-export const FavoritesContext = createContext<FavoriteContext>({ favoritesList: [], userLogged: false });
+export const FavoritesContext = createContext<FavoriteContext>({ 
+  favoritesList: [], 
+  userLogged: false,
+  addFavorite: () => {},
+  deleteFavorite: () => {}
+});
 
 export function FavoritesProvider({ children }: any) {
-  const [favorites, setFavorites] = useState<FavoriteBook[]>([
-    {
-      id: 2,
-      title: "The Alchemist",
-      description: "A journey of self-discovery.",
-      image: "https://picsum.photos/200/300?random=2",
-    },
-    {
-      id: 3,
-      title: "Deep Work",
-      description: "Rules for focused success.",
-      image: "https://picsum.photos/200/300?random=5",
-    },
-  ]);
+  const [favorites, setFavorites] = useState<FavoriteBook[]>([]);
+
+  const addFavoriteItem = (book: FavoriteBook) => {
+    setFavorites((prev) => [...prev, book]);
+  }
+
+  const deleteFavoriteItem = (id: number) => {7
+    setFavorites(favorites.filter(item => item.id !== id));
+  }
 
   return (
     <FavoritesContext.Provider
       value={{
         favoritesList: favorites,
-        userLogged: false
+        userLogged: false,
+        addFavorite: addFavoriteItem,
+        deleteFavorite: deleteFavoriteItem
       }}
     >
       {children}
     </FavoritesContext.Provider>
   );
 }
-
-// here this function just to allow uisng use it outside as hook -> so not required we could do outoise:
-// const favoriteContext = useContext(FavoritesContext)
-
-// export function useFavorites() {
-//   return useContext(FavoritesContext);
-// }

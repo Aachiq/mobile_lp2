@@ -52,14 +52,8 @@ const books = [
 
 export default function HomeScreen() {
 
-//   const {
-//   favorites,
-//   addFavorite,
-// } = useFavorites();
 
 const favoriteContext = useContext(FavoritesContext)
-
-console.log('## favoriteContext :', favoriteContext)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -81,7 +75,7 @@ console.log('## favoriteContext :', favoriteContext)
                 </Text>
                 <Button
                   title="Favorite"
-                  // onPress={() => addFavorite(item)}
+                  onPress={() => favoriteContext.addFavorite(item)}
                 />
               </View>
             )

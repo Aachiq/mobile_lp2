@@ -3,10 +3,6 @@ import { useContext } from "react";
 import { Text, View, Button } from "react-native";
 
 export default function FavoritesScreen() {
-  // const {
-  //   favorites,
-  //   removeFavorite,
-  // } = useFavorites();
 
   const favoritesContext = useContext(FavoritesContext)
 
@@ -21,9 +17,9 @@ export default function FavoritesScreen() {
 
           <Button
             title="Delete"
-            // onPress={() =>
-            //   favoritesContext.removeFavorite(book.id)
-            // }
+            onPress={() =>
+              favoritesContext.deleteFavorite(book.id)
+            }
           />
         </View>
       ))}
