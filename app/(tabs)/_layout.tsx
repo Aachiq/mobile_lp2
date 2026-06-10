@@ -5,7 +5,6 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { FavoritesProvider } from '@/context/favoriteContext';
 
-
 export default function TabLayout() {
 
   return (
@@ -37,6 +36,15 @@ export default function TabLayout() {
           options={{
             title: 'Privacy',
             tabBarIcon: () => <MaterialIcons name="privacy-tip" size={24} color="blue" />,
+            href: null
+          }}
+        />
+
+        <Tabs.Screen
+          name="favorites"
+          options={{
+            title: 'favorites',
+            tabBarIcon: () => <MaterialIcons name="favorite" size={24} color="blue" />,
           }}
         />
       </Tabs>
