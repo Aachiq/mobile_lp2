@@ -1,9 +1,10 @@
 import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PrivacyScreen() {
   return (
-    <View>
+    <SafeAreaView>
         <Text>Hello Privacy</Text>
-    </View>
+    </SafeAreaView>
   )
 }

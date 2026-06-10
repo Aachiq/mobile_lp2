@@ -4,13 +4,12 @@ import { router } from "expo-router";
 
 export default function SplashScreen() {
   
- useEffect(() => {
-    const timer = setTimeout(() => {
-      router.replace("/home");
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // spash is setTimeOut inside UseEffect in index.tsx file
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/home')
+    }, 2000)
+  },[])
 
   return (
     <View style={styles.container}>

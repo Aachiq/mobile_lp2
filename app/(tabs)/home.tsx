@@ -1,9 +1,12 @@
-import { Text, View } from "react-native";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   return (
-    <View>
-        <Text>Hello Home</Text>
-    </View>
+
+    // fix Header inisde status bar using SafeAreaView
+    <SafeAreaView>
+      <Text>Hello Home</Text>
+    </SafeAreaView>
   )
 }

@@ -1,9 +1,10 @@
 import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AboutScreen() {
   return (
-    <View>
+    <SafeAreaView>
         <Text>Hello About</Text>
-    </View>
+    </SafeAreaView>
   )
 }
