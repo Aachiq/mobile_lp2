@@ -1,6 +1,8 @@
 import Header from "@/components/common/Header";
+import { FavoritesContext } from "@/context/favoriteContext";
+import { useContext } from "react";
 import {
-  FlatList,
+  Button,
   Image,
   ScrollView,
   StyleSheet,
@@ -49,6 +51,16 @@ const books = [
 ];
 
 export default function HomeScreen() {
+
+//   const {
+//   favorites,
+//   addFavorite,
+// } = useFavorites();
+
+const favoriteContext = useContext(FavoritesContext)
+
+console.log('## favoriteContext :', favoriteContext)
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -67,6 +79,10 @@ export default function HomeScreen() {
                 <Text>
                   {item.description}
                 </Text>
+                <Button
+                  title="Favorite"
+                  // onPress={() => addFavorite(item)}
+                />
               </View>
             )
           })
