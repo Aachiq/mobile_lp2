@@ -1,18 +1,19 @@
 import { useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { router } from "expo-router";
 
 export default function SplashScreen() {
   
-  // spash is setTimeOut inside UseEffect in index.tsx file
+  // splash is setTimeOut inside UseEffect in index.tsx file
   useEffect(() => {
     setTimeout(() => {
-      router.push('/home')
+      router.push('/home')    
     }, 2000)
   },[])
 
   return (
     <View style={styles.container}>
+      <Image source={require(`../assets/images/icon.png`)} style={{ width: 100, height: 100 }} />
       <Text style={styles.logoType}>My App</Text>
     </View>
   );
