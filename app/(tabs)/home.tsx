@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -28,6 +27,7 @@ const favoriteContext = useContext(FavoritesContext)
           books.map((item, index) => {
             return (
               <TouchableOpacity style={styles.card} key={index} 
+                // redirect to book details
                 onPress={() => router.push({
                   pathname: "/book/[id]",
                   params: {

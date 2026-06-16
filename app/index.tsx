@@ -7,7 +7,7 @@ export default function SplashScreen() {
   // splash is setTimeOut inside UseEffect in index.tsx file
   useEffect(() => {
     setTimeout(() => {
-      router.push('/home')    
+      router.push('/signin')    
     }, 2000)
   },[])
 
