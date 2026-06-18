@@ -1,57 +1,66 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView } from "react-native";
 
 export default function signin() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState<string>('')
 
     const handleChangeEmail = (value: string) => {
-        setEmail(value)
+        setEmail(value);
+        setError('');
     }
+
     const handleChangePassword = (value: string) => {
-        setPassword(value)
+        setPassword(value);
+        setError('');
     }
 
     const handleSubmit = () => {
         console.log(email)
         console.log(password)
 
-        if(email === "admin@gmail.com" && password === "admin"){
+        if (email === "admin@gmail.com" && password === "admin") {
+            setError('')
             router.push('/home')
         }
         // handle messages error
+        setError('Email or Password is invalid !')
     }
 
     return (
         <View style={styles.container}>
             <Image source={require('../assets/images/icon.png')} style={styles.image} />
 
-            <View style={{width: '100%', padding: 20}}>
-                <View style={{marginVertical: 5}}>
-                    <Text style={{paddingBottom: 5, fontWeight: 500}}>Email</Text>
-                    <TextInput 
-                        style={{borderWidth: 1, borderRadius: 8, padding: 10, borderColor: 'grey',color: 'grey'}}
+            <View style={{ width: '100%', padding: 20 }}>
+                <View style={{ marginVertical: 5 }}>
+                    <Text style={{ paddingBottom: 5, fontWeight: 500 }}>Email</Text>
+                    <TextInput
+                        style={{ borderWidth: 1, borderRadius: 8, padding: 10, borderColor: 'grey', color: 'grey' }}
                         placeholder="youremail@gmail.com"
                         onChangeText={(value) => handleChangeEmail(value)}
                     />
                 </View>
-                <View style={{marginVertical: 5}}>
-                    <Text style={{paddingBottom: 5, fontWeight: 500}}>Password</Text>
-                    <TextInput 
-                        style={{borderWidth: 1, borderRadius: 8, padding: 10, borderColor: 'grey', color: 'grey'}}
+                <View style={{ marginVertical: 5 }}>
+                    <Text style={{ paddingBottom: 5, fontWeight: 500 }}>Password</Text>
+                    <TextInput
+                        style={{ borderWidth: 1, borderRadius: 8, padding: 10, borderColor: 'grey', color: 'grey' }}
                         placeholder="your password"
                         onChangeText={(value) => handleChangePassword(value)}
-
+                        secureTextEntry
                     />
                 </View>
-                <TouchableOpacity 
-                    style={{ backgroundColor: '#89CFF0', borderRadius: 15, padding: 10, marginTop: 10}}
+                <TouchableOpacity
+                    style={{ backgroundColor: '#89CFF0', borderRadius: 15, padding: 10, marginTop: 10 }}
                     onPress={handleSubmit}
                 >
-                    <Text style={{textAlign: 'center', fontWeight: 600, fontSize: 15}}>Login</Text>
+                    <Text style={{ textAlign: 'center', fontWeight: 600, fontSize: 15 }}>Login</Text>
                 </TouchableOpacity>
+                {error &&
+                    <Text style={{ paddingVertical: 8, color: 'red', fontWeight: 400 }}>{ error}</Text>
+                }
             </View>
         </View>
     )
