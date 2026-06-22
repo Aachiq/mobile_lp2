@@ -1,0 +1,6 @@
+## Generate APK from "ExpoGo"
+npm install -g eas-cli
+create account "expo" site.
+eas login
+eas build:configure --> this generates "eas.json" + ask is "android | ios | all"
+npx expo-doctor --> check if no error before run "build preveiew apk" command
