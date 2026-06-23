@@ -1,3 +1,4 @@
+import BottomNavigation from "@/components/common/BottomNavigation";
 import Header from "@/components/common/Header";
 import { FavoritesContext } from "@/context/favoriteContext";
 import { books } from "@/data/books";
@@ -44,6 +45,7 @@ const favoriteContext = useContext(FavoritesContext)
           })
         }
       </ScrollView>
+      <BottomNavigation/>
     </SafeAreaView>
   );
 }

@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
 import { router } from "expo-router";
+import { useEffect } from "react";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function SplashScreen() {
   
   // splash is setTimeOut inside UseEffect in index.tsx file
   useEffect(() => {
     setTimeout(() => {
-      router.push('/signin')    
+      router.push('/home')    
     }, 2000)
   },[])
 
