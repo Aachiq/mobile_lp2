@@ -1,35 +1,51 @@
 import Header from "@/components/common/Header";
-import { books } from "@/data/books";
+import { FavoriteBook } from "@/types/context.types";
 import { useLocalSearchParams } from "expo-router";
-import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function BookDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const foundBook = books.find(item => item.id == parseInt(id));
+  // const foundBook = books.find(item => item.id == parseInt(id));
 
-  if (!foundBook) {
-    return (
-      <View style={styles.container}>
-        <Text>Book not found</Text>
-      </View>
-    );
-  }
+  // now it works well here but next commit i will add chnages that shoul be implemented
+  const [selectedBook, setSelectedBook] = useState<FavoriteBook>({
+    id: 0,
+    title: '',
+    description: '',
+    image: ''
+  })
+
+  // fetch book by id
+  useEffect(() => {
+    fetch(`http://localhost:4200/books/${id}`)
+      .then(res => res.json())
+      .then(data => setSelectedBook(data))
+  }, [id])
+
+  // if (!foundBook) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text>Book not found</Text>
+  //     </View>
+  //   );
+  // }
 
 
   return (
     <SafeAreaView style={styles.container}>
       <Header isRedirect/>
       <ScrollView contentContainerStyle={{ padding: 16 }}>
-        <Image source={{ uri: foundBook?.image }} style={styles.image} />
+        <Image source={{ uri: selectedBook?.image }} style={styles.image} />
 
-        <Text style={styles.title}>{foundBook?.title}</Text>
+        <Text style={styles.title}>{selectedBook?.title}</Text>
 
         <Text>ID: {id}</Text>
 
         <Text style={styles.description}>
-            {foundBook?.description}
+            {selectedBook?.description}
         </Text>
 
         <View style={styles.commonBox}>

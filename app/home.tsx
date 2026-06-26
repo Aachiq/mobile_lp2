@@ -1,9 +1,9 @@
 import BottomNavigation from "@/components/common/BottomNavigation";
 import Header from "@/components/common/Header";
 import { FavoritesContext } from "@/context/favoriteContext";
-import { books } from "@/data/books";
+import { FavoriteBook } from "@/types/context.types";
 import { router } from "expo-router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Image,
@@ -18,21 +18,29 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
 
-const favoriteContext = useContext(FavoritesContext)
+  const favoriteContext = useContext(FavoritesContext)
+  const [booksData, setBooksData] = useState<FavoriteBook[]>([])
+
+  // fetch books from api
+  useEffect(() => {
+    fetch('http://localhost:4200/books')
+      .then(res => res.json())
+      .then(json => setBooksData(json))
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <ScrollView style={{flex: 1, padding: 8}}>
         {
-          books.map((item, index) => {
+          booksData.slice(1, 3).map((item, index) => {
             return (
               <TouchableOpacity style={styles.card} key={index} 
                 // redirect to book details
                 onPress={() => router.push({
                   pathname: "/book/[id]",
                   params: {
-                    id: "1",
+                    id: item.id,
                   },
                 })}
               >
