@@ -8,31 +8,49 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function BookDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  // const foundBook = books.find(item => item.id == parseInt(id));
-
-  // now it works well here but next commit i will add chnages that shoul be implemented
-  const [selectedBook, setSelectedBook] = useState<FavoriteBook>({
-    id: 0,
-    title: '',
-    description: '',
-    image: ''
-  })
+  // use | null here in type & init values with null value
+  const [selectedBook, setSelectedBook] = useState<FavoriteBook | null>(null)
 
   // fetch book by id
+  // useEffect(() => {
+  //   fetch(`http://localhost:4200/books/${id}`)
+  //     .then(res => res.json())
+  //     .then(data => setSelectedBook(data))
+  // }, [id])
+
+  // here handle 3 cases alwyas in api -> (loading, success, error) & create state for each one
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
+    setLoading(true);
+
     fetch(`http://localhost:4200/books/${id}`)
-      .then(res => res.json())
-      .then(data => setSelectedBook(data))
-  }, [id])
+      .then((response) => {
+        if (!response.ok) {
+          setLoading(false);
+          setError("Book not found");
 
-  // if (!foundBook) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text>Book not found</Text>
-  //     </View>
-  //   );
-  // }
+          // console.log('response :', response)-> this show ok: false when status 404 and "books/20" not found
+          // throw new Error("Book not found"); --> this put the message inside catch() but no need it
+        }
 
+        return response.json();
+      })
+      .then((data) => {
+        setSelectedBook(data);
+        setLoading(false);
+      })
+  }, [id]);
+
+
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>{error}</Text>;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
