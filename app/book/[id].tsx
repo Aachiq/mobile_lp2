@@ -22,27 +22,48 @@ export default function BookDetails() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null);
 
+  // useEffect(() => {
+  //   setLoading(true);
+
+  //   fetch(`http://localhost:4200/books/${id}`)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         setLoading(false);
+  //         setError("Book not found");
+
+  //         // console.log('response :', response)-> this show ok: false when status 404 and "books/20" not found
+  //         // throw new Error("Book not found"); --> this put the message inside catch() but no need it
+  //       }
+
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setSelectedBook(data);
+  //       setLoading(false);
+  //     })
+  // }, [id]);
+
   useEffect(() => {
-    setLoading(true);
+    const fetchBook = async () => {
+      try {
+        const response = await fetch(`http://localhost:4200/books/${id}`);
 
-    fetch(`http://localhost:4200/books/${id}`)
-      .then((response) => {
         if (!response.ok) {
-          setLoading(false);
-          setError("Book not found");
-
-          // console.log('response :', response)-> this show ok: false when status 404 and "books/20" not found
-          // throw new Error("Book not found"); --> this put the message inside catch() but no need it
+          setSelectedBook(null);
+          return;
         }
 
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
         setSelectedBook(data);
+      } catch (error) {
+        setSelectedBook(null); // and loading is always initted with true it keeps loading.
+      } finally {
         setLoading(false);
-      })
-  }, [id]);
+      }
+    };
 
+    fetchBook();
+  }, [id]);
 
   if (loading) {
     return <Text>Loading...</Text>;
